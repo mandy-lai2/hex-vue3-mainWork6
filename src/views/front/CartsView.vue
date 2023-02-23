@@ -193,11 +193,13 @@ export default {
   },
   methods: {
     getCart () {
+      const loader = this.$loading.show()
       this.$http
         .get(`${VITE_API}/api/${VITE_APIPATH}/cart`)
         .then((res) => {
           // console.log('購物車:', res.data.data);
           this.cart = res.data.data
+          loader.hide()
           if (this.cart.carts.length) {
             this.isOpen = false
           } else {

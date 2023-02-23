@@ -42,7 +42,7 @@ export default {
       this.$http
         .post(`${VITE_API}/api/user/check`)
         .then((res) => {
-          console.log(res.data)
+          // console.log(res.data)
         })
         .catch((error) => {
           if (!error.response.data.success) {

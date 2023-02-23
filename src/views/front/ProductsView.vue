@@ -59,9 +59,11 @@ export default {
   },
   methods: {
     getProducts () {
+      const loader = this.$loading.show()
       this.$http.get(`${VITE_API}/api/${VITE_APIPATH}/products/all`)
         .then((res) => {
           this.products = res.data.products
+          loader.hide()
           // console.log('全部產品:', this.products);
           // this.loader.hide();
         })

@@ -7,6 +7,7 @@ const routes = [
     children: [
       {
         path: '',
+        name: 'home',
         component: () => import('../views/front/HomeView.vue')
       },
       {
@@ -44,7 +45,14 @@ const routes = [
         component: () => import('../views/admin/AdminOrders.vue')
       }
     ]
+  },
+  {
+    path: '/:pathMatch(.*)*', // 重新導向
+    redirect: {
+      name: 'home'
+    }
   }
+
 ]
 
 const router = createRouter({

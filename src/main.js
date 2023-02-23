@@ -18,6 +18,10 @@ import { localize, setLocale } from '@vee-validate/i18n'
 // 繁體中文語系檔
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
+// loading As plugin
+import { LoadingPlugin } from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
+
 // 全部加入，將驗證規則加入 VeeValidate
 Object.keys(VeeValidateRules).forEach((rule) => {
   defineRule(rule, VeeValidateRules[rule])
@@ -34,8 +38,10 @@ const app = createApp(App)
 
 app.use(router)
 app.use(VueAxios, axios)
+app.use(LoadingPlugin)
 
 app.component('VField', Field)
 app.component('VForm', Form)
 app.component('ErrorMessage', ErrorMessage)
+
 app.mount('#app')

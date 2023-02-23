@@ -22,7 +22,8 @@
             min="1"
             v-model.number="qty"
           />
-          <button type="button" class="btn btn-primary" @click="addCart">
+          <button type="button" class="btn btn-primary"
+          :class="{disabled: isButton}" @click="addCart">
             加入購物車
           </button>
         </div>
@@ -37,18 +38,18 @@ export default {
   data () {
     return {
       tempProduct: {},
-      qty: 1
+      qty: 1,
+      isButton: false
     }
   },
   methods: {
     getProduct () {
       const id = this.$route.params.id
-      console.log(id)
       this.$http
         .get(`${VITE_API}/api/${VITE_APIPATH}/product/${id}`)
         .then((res) => {
           this.tempProduct = res.data.product
-          console.log('單一產品:', this.tempProduct)
+          // console.log('單一產品:', this.tempProduct)
           // this.$refs.productModal.openModal()
           // this.loadingId = ''
         })
@@ -58,18 +59,17 @@ export default {
     },
     addCart (id) {
       // this.loadingId = id
-      // this.isButton = true
+      this.isButton = true
       const data = {
         product_id: this.tempProduct.id,
         qty: this.qty
       }
-      console.log(data)
       this.$http
         .post(`${VITE_API}/api/${VITE_APIPATH}/cart`, { data })
         .then((res) => {
           // this.loadingId = ''
           alert(res.data.message)
-          // this.isButton = false
+          this.isButton = false
         })
         .catch((err) => {
           alert(err.response.data.message)
